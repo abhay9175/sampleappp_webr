@@ -14,6 +14,8 @@ jobs:
 
       - name: List Files (Debugging Step)
         run: ls -l  # ✅ This checks if Dockerfile exists
+
+      - name: List Files Inside `modules/` (Debugging Step)
+        run: ls -l modules  # ✅ Ensure Dockerfile is inside `modules/`
         
-      - name: Set up Docker Build
-        run: docker build -t your-dockerhub-username/laravel-app:latest .
+     
