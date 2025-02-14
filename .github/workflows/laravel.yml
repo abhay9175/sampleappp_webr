@@ -35,5 +35,8 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/laravel-app:latest  # ✅ Pushes to Docker Hub
 
+      - name: Verify Image Build
+        run: docker pull ${{ secrets.DOCKER_USERNAME }}/laravel-app:latest
+
         
      
