@@ -12,11 +12,8 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: List Files (Debugging Step)
-        run: ls -l  # ✅ This checks if Dockerfile exists
-
-      - name: List Files Inside `modules/` (Debugging Step)
-        run: ls -l modules  # ✅ Ensure Dockerfile is inside `modules/`
+      - name: List Files Inside `modules/` 
+        run: ls -l modules 
 
       - name: Log in to DockerHub
         uses: docker/login-action@v2
@@ -27,13 +24,13 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Build and Push Docker Image (Using Dockerfile Inside `modules/`)
+      - name: Build and Push Docker Image 
         uses: docker/build-push-action@v4
         with:
-          context: ./modules  # ✅ Set the correct build context
-          file: ./modules/Dockerfile  # ✅ Specify the Dockerfile path
+          context: ./modules 
+          file: ./modules/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/laravel-app:latest  # ✅ Pushes to Docker Hub
+          tags: ${{ secrets.DOCKER_USERNAME }}/laravel-app:latest
 
       - name: Verify Image Build
         run: docker pull ${{ secrets.DOCKER_USERNAME }}/laravel-app:latest
@@ -54,7 +51,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      # ✅ Install kubectl
+      # Install kubectl
       - name: Install kubectl
         run: |
           curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
@@ -62,14 +59,14 @@ jobs:
           sudo mv kubectl /usr/local/bin/
           kubectl version --client
 
-      # ✅ Connect kubectl to EKS
+      # Connect kubectl to EKS
       - name: Update kubeconfig
         run: aws eks --region ${{ secrets.AWS_REGION }} update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }}
 
       - name: List Files Inside `modules/` (Debugging Step)
-        run: ls -l modules  # ✅ Ensure kubernetes is inside `modules/`
+        run: ls -l modules 
 
-      # ✅ Deploy Laravel App to EKS
+      # Deploy Laravel App to EKS
       - name: Deploy Laravel to EKS
         run: |
           kubectl apply -f deployment.yml
