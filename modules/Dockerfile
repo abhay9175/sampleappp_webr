@@ -38,4 +38,4 @@ EXPOSE 8000
 
 # Command to run Laravel's built-in server
 #CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
-CMD php artisan serve --host=0.0.0.0 --port=8000 & npm run dev -- --host
+CMD  npm run dev -- --host & php artisan serve --host=0.0.0.0 --port=8000  
