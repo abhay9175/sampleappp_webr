@@ -61,5 +61,15 @@ jobs:
           chmod +x kubectl
           sudo mv kubectl /usr/local/bin/
           kubectl version --client
+
+      # ✅ Connect kubectl to EKS
+      - name: Update kubeconfig
+        run: aws eks --region ${{ secrets.AWS_REGION }} update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }}
+
+      # ✅ Deploy Laravel App to EKS
+      - name: Deploy Laravel to EKS
+        run: |
+          kubectl apply -f k8s-deployment.yaml
+          kubectl apply -f k8s-service.yaml
         
      
