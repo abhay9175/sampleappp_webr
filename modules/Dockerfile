@@ -3,7 +3,7 @@ FROM php:8.1-cli
 # Set working directory
 WORKDIR /var/www/html
 
-# Install system dependencies (without npm)
+# Install system dependencies
 RUN apt-get update -qq && apt-get install -y \
     unzip \
     curl \
@@ -14,11 +14,11 @@ RUN apt-get update -qq && apt-get install -y \
     zip \
     && docker-php-ext-install pdo_mysql gd mbstring xml
 
-# Install Node.js (which includes npm)
+# Install Node.js
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
     && apt-get install -y nodejs
 
-# Install Composer globally
+# Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Copy application files
@@ -30,10 +30,10 @@ RUN composer install --no-dev --optimize-autoloader
 # Install JavaScript dependencies
 RUN npm install
 
-# Ensure storage and cache directories are writable
+# Ensure cache directories are writable
 RUN chmod -R 777 storage bootstrap/cache
 
-# Expose application port (Laravel default is 8000)
+# Expose application port 
 EXPOSE 8000
 
 # Command to run Laravel's built-in server
