@@ -72,7 +72,7 @@ jobs:
       # ✅ Deploy Laravel App to EKS
       - name: Deploy Laravel to EKS
         run: |
-          kubectl apply -f deployment.yaml
-          kubectl apply -f service.yaml
+          kubectl apply -f deployment.yml
+          kubectl apply -f service.yml
         
      
