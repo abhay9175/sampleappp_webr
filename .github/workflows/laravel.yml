@@ -23,5 +23,17 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build and Push Docker Image (Using Dockerfile Inside `modules/`)
+        uses: docker/build-push-action@v4
+        with:
+          context: ./modules  # ✅ Set the correct build context
+          file: ./modules/Dockerfile  # ✅ Specify the Dockerfile path
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/laravel-app:latest  # ✅ Pushes to Docker Hub
+
         
      
