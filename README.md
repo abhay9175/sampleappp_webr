@@ -4,7 +4,7 @@ This project automates the build, push, and deployment of a Laravel application 
 
 Workflow Overview
 
-GitHub Actions Pipeline:
+GitHub Actions Pipeline: 
 
 Builds the Docker image from the modules/ folder.
 Pushes the image to Docker Hub.
